@@ -89,8 +89,8 @@ AWA_AWS_IMPL = ["none", "1", "2", "3", "4"]
 AWA_AWS_IMPL = "4"
 
 [environment]
-DYNAMO_SEARCH_PATH.prepend = "${CRATE_ROOT}/awa/plugins"
-DYNAMO_UML_PATH.prepend = "${CRATE_ROOT}/awa/uml"
+DYNAMO_SEARCH_PATH.prepend = "${CRATE_ROOT}/plugins"
+DYNAMO_UML_PATH.prepend = "${CRATE_ROOT}/uml"
 
 [configuration]
 disabled = true
