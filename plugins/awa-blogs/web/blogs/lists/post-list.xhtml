@@ -8,13 +8,13 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:c="http://java.sun.com/jstl/core"
-	    xmlns:u="http://code.google.com/p/ada-asf/util"
+        xmlns:u="http://code.google.com/p/ada-asf/util"
         xmlns:util="http://code.google.com/p/ada-asf/util"
         xmlns:ajax="http://code.google.com/p/ada-asf/ajax"
         xmlns:h="http://java.sun.com/jsf/html">
   <h:list var="post" value="#{postList.posts}">
-    <div class='blog-post' id="p_#{post.id}">
-        <div class='post-title'>
+    <article class='blog-post' id="p_#{post.id}">
+        <header class='post-title'>
             <h2><a href="#{contextPath}/blogs/post.html?post=#{post.uri}">#{post.title}</a></h2>
             <p>
                 <h:outputFormat value="#{blogMsg.blog_post_author}">
@@ -29,30 +29,31 @@
                    </a>
                 </h:panelGroup>
             </p>
-        </div>
-        <awa:tagList value='#{postList.tags}' styleClass="tagedit-list"
-                     tagLink="#{contextPath}/blogs/tagged.html?tag=#{util:urlEncode(tagName)}"
-                     var="tagName"
-                     tagClass="tagedit-listelement tagedit-listelement-old"/>
-
-        <awa:wiki styleClass='post-text'
-                  value="#{empty post.summary ? post.text : post.summary}"
-                  plugins="#{post}"
-                  links="#{postList.links}"
-                  format="#{post.format}"/>
-        <h:panelGroup rendered="#{not empty post.summary}" styleClass="awa-post-more">
+            <awa:tagList value='#{postList.tags}' styleClass="tagedit-list"
+                         tagLink="#{contextPath}/blogs/tagged.html?tag=#{util:urlEncode(tagName)}"
+                         var="tagName"
+                         tagClass="tagedit-listelement tagedit-listelement-old"/>
+        </header>
+        <section class='post-article'>
+          <awa:wiki styleClass='post-text'
+                    value="#{empty post.summary ? post.text : post.summary}"
+                    plugins="#{post}"
+                    links="#{postList.links}"
+                    format="#{post.format}"/>
+        </section>
+          <h:panelGroup rendered="#{not empty post.summary}" styleClass="awa-post-more">
             <a href="#{contextPath}/blogs/post.html?post=#{post.uri}">#{blogMsg.blog_post_read_more}</a>
-        </h:panelGroup>
-        <!-- Increment the post read counter but do not display anything -->
-        <awa:counter value="#{postList.counter}" hidden="true"/>
-        <h:panelGroup layout="div" styleClass="blog-post-comment"
-                      rendered="#{post.allow_comments or post.comment_count ne 0}">
+          </h:panelGroup>
+          <!-- Increment the post read counter but do not display anything -->
+          <awa:counter value="#{postList.counter}" hidden="true"/>
+          <h:panelGroup layout="div" styleClass="blog-post-comment"
+                        rendered="#{post.allow_comments or post.comment_count ne 0}">
             <h:panelGroup rendered="#{post.comment_count ne 0}" layout="div" styleClass="blog-post-comment-count">
-                <a href="#{contextPath}/blogs/post.html?post=#{post.uri}#comments">
-                    <h:outputFormat value="#{post.comment_count gt 1 ? blogMsg.blog_post_count : blogMsg.blog_post_one_count}">
-                        <f:param value="#{post.comment_count}"/>
-                    </h:outputFormat>
-                </a>
+              <a href="#{contextPath}/blogs/post.html?post=#{post.uri}#comments">
+                <h:outputFormat value="#{post.comment_count gt 1 ? blogMsg.blog_post_count : blogMsg.blog_post_one_count}">
+                  <f:param value="#{post.comment_count}"/>
+                </h:outputFormat>
+              </a>
             </h:panelGroup>
             <h:panelGroup rendered="#{post.allow_comments}" layout="div" styleClass="blog-post-add-comment">
                 <c:choose>
@@ -66,7 +67,7 @@
                 </c:choose>
             </h:panelGroup>
         </h:panelGroup>
-    </div>
+    </article>
   </h:list>
     <h:panelGroup rendered="#{postList.page_count gt 1}">
     <ul class='awa-pagination'>

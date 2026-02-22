@@ -3,8 +3,12 @@
  * Copyright (C) 2011-2023 Stephane Carrez
  * Licensed under the Apache License, Version 2.0 (the "License");
  */
-div.blog-post div.post-text, div.post-info, div.post-header,
+.blog-post div.post-text, div.post-info, div.post-header,
 .awa-post-editor, .awa-post-buttons {
+    float: left;
+    width: 100%;
+}
+.post-article {
     float: left;
     width: 100%;
 }
@@ -119,13 +123,13 @@ a.spam-icon {
 /*
  * Blog post
  */
-div.blog-post {
+.blog-post {
     float: left;
     width: 100%;
     padding-left: 2%;
     padding-right: 2%;
 }
-div.blog-post div.post-title {
+.blog-post .post-title {
     float: left;
     margin-top: 15px;
     width: 100%;
@@ -134,11 +138,11 @@ div.blog-post div.post-title {
     background: url(../images/blogs/ico_entry.gif) no-repeat;
     padding-left: 30px;
 }
-div.blog-post div.post-title h2 {
+.blog-post .post-title h2 {
     margin: 0;
     line-height: 1.33em;
 }
-div.blog-post div.post-title h2 a {
+.blog-post .post-title h2 a {
     text-decoration: none;
     font-weight: bold;
     font-size: 1.33em;
@@ -199,14 +203,14 @@ ul.blog-syntax li {
 ul.blog-syntax li.spare {
     padding-top: 15px;
 }
-div.blog-post ul.tagedit-list {
+.blog-post ul.tagedit-list {
     float: right;
     list-style-type: none;
 }
-div.blog-post-tag-info {
+.blog-post-tag-info {
     margin-bottom: 1em;
 }
-div.blog-post-tag-info h2 {
+.blog-post-tag-info h2 {
     padding: 2px 8px;
     font-size: 1.15em;
 }
@@ -303,7 +307,7 @@ div.blog-post-comment-count a {
 div.comment-COMMENT_PUBLISHED {
     color: #111;
 }
-div.blog-post div.post-title h2 a {
+.blog-post .post-title h2 a {
     color: #F91;
 }
 div.post-text pre {
