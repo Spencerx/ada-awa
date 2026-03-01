@@ -33,7 +33,7 @@
                 <a class='awa-button' href="#{contextPath}/blogs/admin/edit/#{adminBlog.id}/#{post.id}">#{blogMsg.blog_post_edit_label}</a>
               </li>
             </ul>
-            <h2><a href="#{contextPath}/blogs/post.html?post=#{post.uri}">#{post.title}</a></h2>
+            <h2><a href="#{contextPath}/blogs/posts/#{post.uri}">#{post.title}</a></h2>
             <p>
               <h:outputFormat value="#{blogMsg.blog_post_author}">
                 <f:param value="#{post.username}"/>
@@ -49,7 +49,7 @@
             </p>
           </div>
           <awa:tagList value='#{post.tags}' id='qtags' styleClass="tagedit-list"
-                       tagLink="#{contextPath}/blogs/tagged.html?tag=#{util:urlEncode(tagName)}"
+                       tagLink="#{contextPath}/blogs/tags/#{util:urlEncode(tagName)}"
                        var="tagName"
                        tagClass="tagedit-listelement tagedit-listelement-old"/>
 

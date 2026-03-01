@@ -485,6 +485,27 @@ package body AWA.Blogs.Beans is
       use type AWA.Comments.Beans.Comment_Bean_Access;
       use type AWA.Comments.Beans.Comment_List_Bean_Access;
       use Wiki.Strings;
+      use Ada.Calendar;
+      function Month_Image (Month : in Month_Number) return String;
+      function Image (Day : in Day_Number) return String;
+
+      function Month_Image (Month : in Month_Number) return String is
+      begin
+         if Month <= 9 then
+            return "0" & Util.Strings.Image (Natural (Month));
+         else
+            return Util.Strings.Image (Natural (Month));
+         end if;
+      end Month_Image;
+
+      function Image (Day : in Day_Number) return String is
+      begin
+         if Day <= 9 then
+            return "0" & Util.Strings.Image (Natural (Day));
+         else
+            return Util.Strings.Image (Natural (Day));
+         end if;
+      end Image;
 
       Session      : ADO.Sessions.Session := Bean.Module.Get_Session;
       Query        : ADO.SQL.Query;
@@ -496,8 +517,20 @@ package body AWA.Blogs.Beans is
          Query.Bind_Param (1, Bean.Get_Id);
          Query.Set_Filter ("o.id = ?");
       else
-         Query.Bind_Param (1, Sanitize_Uri (String '(Bean.Get_Uri)));
-         Query.Set_Filter ("o.uri = ?");
+         declare
+            Uri : constant String
+              := Sanitize_Uri (String '(Bean.Get_Uri));
+         begin
+            if Bean.Year /= Ada.Calendar.Year_Number'First then
+               Query.Bind_Param (1, Util.Strings.Image (Natural (Bean.Year))
+                                 & "/" & Month_Image (Bean.Month)
+                                 & "/" & Image (Bean.Day)
+                                 & "/" & Uri);
+            else
+               Query.Bind_Param (1, Uri);
+            end if;
+            Query.Set_Filter ("o.uri = ?");
+         end;
       end if;
       Bean.Find (Session, Query, Found);
       if not Found then
@@ -608,6 +641,7 @@ package body AWA.Blogs.Beans is
    procedure Set_Value (From  : in out Post_Bean;
                         Name  : in String;
                         Value : in Util.Beans.Objects.Object) is
+      use Ada.Calendar;
    begin
       if Name = BLOG_ID_ATTR then
          From.Blog_Id := ADO.Utils.To_Identifier (Value);
@@ -615,6 +649,12 @@ package body AWA.Blogs.Beans is
          From.Load_Post (ADO.Utils.To_Identifier (Value));
       elsif Name = POST_UID_ATTR and then not Util.Beans.Objects.Is_Empty (Value) then
          From.Set_Id (ADO.Utils.To_Identifier (Value));
+      elsif Name = "year" then
+         From.Year := Year_Number (Util.Beans.Objects.To_Integer (Value));
+      elsif Name = "month" then
+         From.Month := Month_Number (Util.Beans.Objects.To_Integer (Value));
+      elsif Name = "day" then
+         From.Day := Day_Number (Util.Beans.Objects.To_Integer (Value));
       else
          AWA.Blogs.Models.Post_Bean (From).Set_Value (Name, Value);
       end if;

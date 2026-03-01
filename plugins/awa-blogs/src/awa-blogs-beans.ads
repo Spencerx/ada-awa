@@ -174,6 +174,10 @@ package AWA.Blogs.Beans is
       --  The post description generated from the content.
       Description   : Ada.Strings.Unbounded.Unbounded_String;
       Image_Link    : Wiki.Strings.UString;
+
+      Year          : Ada.Calendar.Year_Number := Ada.Calendar.Year_Number'First;
+      Month         : Ada.Calendar.Month_Number := 1;
+      Day           : Ada.Calendar.Day_Number := 1;
    end record;
    type Post_Bean_Access is access all Post_Bean'Class;
 

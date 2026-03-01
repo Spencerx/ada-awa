@@ -483,8 +483,11 @@
     <url-pattern>/blogs/admin/create/#{post.blogId}</url-pattern>
     <url-pattern>/blogs/admin/edit/#{post.blogId}/#{post.id}</url-pattern>
     <url-pattern>/blogs/post/#{postAccessStats.entity_id}/stats/#{postAccessStats.first_date}</url-pattern>
+    <url-pattern>/blogs/posts/#{post.uri}</url-pattern>
+    <url-pattern>/blogs/posts/#{post.year}/#{post.month}/#{post.day}/#{post.uri}</url-pattern>
     <url-pattern>/blogs/feeds</url-pattern>
     <url-pattern>/blogs/images/*</url-pattern>
+    <url-pattern>/blogs/tags/#{postList.tag}</url-pattern>
   </filter-mapping>
 
   <filter-mapping>
@@ -555,6 +558,17 @@
   <url-mapping>
     <pattern>/blogs/admin/#{blogStats.blog_id}/stats</pattern>
     <view-id>/blogs/admin/views/blog-stats.html</view-id>
+  </url-mapping>
+
+  <url-mapping>
+    <pattern>/blogs/posts/#{post.uri}</pattern>
+    <pattern>/blogs/posts/#{post.year}/#{post.month}/#{post.day}/#{post.uri}</pattern>
+    <view-id>/blogs/post.html</view-id>
+  </url-mapping>
+
+  <url-mapping>
+    <pattern>/blogs/tags/#{postList.tag}</pattern>
+    <view-id>/blogs/tagged.html</view-id>
   </url-mapping>
 
   <url-mapping>

@@ -15,7 +15,7 @@
         { "action": "hide" }
     </c:when>
     <c:otherwise>
-        { "action": "redirect", "url": "#{contextPath}/blogs/post.html?post=#{post.uri}" }
+        { "action": "redirect", "url": "#{contextPath}/blogs/posts/#{post.uri}" }
     </c:otherwise>
 </c:choose>
 ]

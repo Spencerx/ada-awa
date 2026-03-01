@@ -38,7 +38,7 @@
     <h:list var="post" value="#{postList.posts}">
         <entry>
             <title>#{post.title}</title>
-            <link href="#{feed_blog.url}#{contextPath}/blogs/post.html?post=#{post.uri}"
+            <link href="#{feed_blog.url}#{contextPath}/blogs/posts/#{post.uri}"
                     rel="alternate" type="text/html" title="#{post.title}"/>
             <id>urn:sha256:#{u:sha256(post.uri)}</id>
             <published><h:outputText value="#{post.date}">

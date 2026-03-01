@@ -15,14 +15,14 @@
   <h:list var="post" value="#{postList.posts}">
     <article class='blog-post' id="p_#{post.id}">
         <header class='post-title'>
-            <h2><a href="#{contextPath}/blogs/post.html?post=#{post.uri}">#{post.title}</a></h2>
+            <h2><a href="#{contextPath}/blogs/posts/#{post.uri}">#{post.title}</a></h2>
             <p>
                 <h:outputFormat value="#{blogMsg.blog_post_author}">
                     <f:param value="#{post.username}"/>
                 </h:outputFormat>
                 <h:outputText styleClass='post-date' value="#{post.date}" converter="dateConverter"/>
                 <h:panelGroup rendered="#{post.comment_count ne 0}">
-                   <a href="#{contextPath}/blogs/post.html?post=#{post.uri}#comments" class="post-comment-count">
+                   <a href="#{contextPath}/blogs/posts/#{post.uri}#comments" class="post-comment-count">
                       <h:outputFormat value="#{post.comment_count gt 1 ? blogMsg.blog_post_count : blogMsg.blog_post_one_count}">
                          <f:param value="#{post.comment_count}"/>
                       </h:outputFormat>
@@ -30,7 +30,7 @@
                 </h:panelGroup>
             </p>
             <awa:tagList value='#{postList.tags}' styleClass="tagedit-list"
-                         tagLink="#{contextPath}/blogs/tagged.html?tag=#{util:urlEncode(tagName)}"
+                         tagLink="#{contextPath}/blogs/tags/#{util:urlEncode(tagName)}"
                          var="tagName"
                          tagClass="tagedit-listelement tagedit-listelement-old"/>
         </header>
@@ -42,14 +42,14 @@
                     format="#{post.format}"/>
         </section>
           <h:panelGroup rendered="#{not empty post.summary}" styleClass="awa-post-more">
-            <a href="#{contextPath}/blogs/post.html?post=#{post.uri}">#{blogMsg.blog_post_read_more}</a>
+            <a href="#{contextPath}/blogs/posts/#{post.uri}">#{blogMsg.blog_post_read_more}</a>
           </h:panelGroup>
           <!-- Increment the post read counter but do not display anything -->
           <awa:counter value="#{postList.counter}" hidden="true"/>
           <h:panelGroup layout="div" styleClass="blog-post-comment"
                         rendered="#{post.allow_comments or post.comment_count ne 0}">
             <h:panelGroup rendered="#{post.comment_count ne 0}" layout="div" styleClass="blog-post-comment-count">
-              <a href="#{contextPath}/blogs/post.html?post=#{post.uri}#comments">
+              <a href="#{contextPath}/blogs/posts/#{post.uri}#comments">
                 <h:outputFormat value="#{post.comment_count gt 1 ? blogMsg.blog_post_count : blogMsg.blog_post_one_count}">
                   <f:param value="#{post.comment_count}"/>
                 </h:outputFormat>
@@ -58,11 +58,11 @@
             <h:panelGroup rendered="#{post.allow_comments}" layout="div" styleClass="blog-post-add-comment">
                 <c:choose>
                     <c:when test="#{user.isLogged}">
-                        <a href="#{contextPath}/blogs/post.html?post=#{post.uri}#comments">#{blogMsg.blog_add_comment}</a>
+                        <a href="#{contextPath}/blogs/posts/#{post.uri}#comments">#{blogMsg.blog_add_comment}</a>
                     </c:when>
                     <c:otherwise>
                         #{blogMsg.blog_sign_in_add_comment}
-                        <a rel="nofollow" href="#{contextPath}/auth/login.html?redirect=#{contextPath}/blogs/post.html%3Fpost%3D#{util:urlEncode(post.uri)}%23comment-add">#{blogMsg.blog_sign_in_add_comment_label}</a>
+                        <a rel="nofollow" href="#{contextPath}/auth/login.html?redirect=#{contextPath}/blogs/posts/#{util:urlEncode(post.uri)}%23comment-add">#{blogMsg.blog_sign_in_add_comment_label}</a>
                     </c:otherwise>
                 </c:choose>
             </h:panelGroup>
